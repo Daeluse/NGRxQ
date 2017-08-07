@@ -1,0 +1,74 @@
+<md-card>
+  <md-card-header>
+    <md-card-title style="font-size: 24px;">
+      Qlik Chart
+    </md-card-title>
+    <md-card-subtitle>
+      Global Beer Data
+    </md-card-subtitle>
+  </md-card-header>
+
+  <div class="spacer"></div>
+  
+  <div layout="row" layout-align="start center">
+    <md-select placeholder="Chart Type" [(ngModel)]="type" (ngModelChange)="refreshApp()">
+      <md-option value="pie">
+        Pie Chart
+      </md-option>
+      <md-option value="bar">
+        Bar Chart
+      </md-option>
+    </md-select>
+    <span flex></span>
+    <md-select placeholder="Data Point One" [(ngModel)]="fieldOne" (ngModelChange)="refreshApp()">
+      <ng-template ngFor let-field [ngForOf]="fields">
+        <md-option [value]="field.value">
+          {{ field.value }}
+        </md-option>
+      </ng-template>
+    </md-select>
+    <span class="spacer"></span>
+    <md-select placeholder="Data Point One" [(ngModel)]="fieldTwo" (ngModelChange)="refreshApp()">
+      <ng-template ngFor let-field [ngForOf]="fields">
+        <md-option [value]="field.value">
+          {{ field.value }}
+        </md-option>
+      </ng-template>
+    </md-select>
+    <span class="spacer"></span>
+    <button md-icon-button (click)="refreshApp()">
+      <md-icon>
+        refresh
+      </md-icon>
+    </button>
+  </div>
+  
+  <div class="spacer"></div>
+
+  <ngx-charts-pie-chart *ngIf="type === 'pie'"
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="single"
+    [legend]="showLegend"
+    [explodeSlices]="explodeSlices"
+    [labels]="showLabels"
+    [doughnut]="doughnut"
+    [gradient]="gradient">
+  </ngx-charts-pie-chart>
+
+  <ngx-charts-bar-vertical *ngIf="type === 'bar'"
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="single"
+      [gradient]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="fieldOne"
+      [yAxisLabel]="fieldTwo">
+    </ngx-charts-bar-vertical>
+
+  <div class="clear"></div>
+</md-card>
