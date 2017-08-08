@@ -1027,7 +1027,7 @@ interface GenericBookmarkProperties extends AbstractGenericProperties {
     qInfo: NxInfo;
 }
 
-interface GenericDimensionProperties {
+interface GenericDimensionProperties extends AbstractGenericProperties {
     /**
      * Identifier and type of the dimension.
      */
@@ -1038,7 +1038,7 @@ interface GenericDimensionProperties {
     qDim: NxLibraryDimensionDef;
 }
 
-interface GenericMeasureProperties {
+interface GenericMeasureProperties extends AbstractGenericProperties {
     /**
      * Information about the measure.
      */
@@ -1049,7 +1049,7 @@ interface GenericMeasureProperties {
     qDim: NxLibraryMeasureDef;
 }
 
-interface GenericObjectProperties {
+interface GenericObjectProperties extends AbstractGenericProperties {
     /**
     * Identifier and type of the object.
     */
