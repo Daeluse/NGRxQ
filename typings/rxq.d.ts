@@ -779,21 +779,155 @@ interface Connection {
     qLogOn: 'LOG_ON_SERVICE_USER' | 'LOG_ON_CURRENT_USER';
 }
 
-interface GenericBookmarkProperties {
+interface VariableListDef {
     /**
-     * Information about the bookmark.
+     * Type of the list
      */
-    qInfo: NxInfo;
+    qType?: string;
+    /**
+     * Shows the reserved variables if set to true.
+     */
+    qShowReserved?: boolean;
+    /**
+     * Shows the system variables if set to true.
+     */
+    qShowConfig?: boolean;
+    /**
+     * Data
+     */
+    qData?: JSON;
+}
+
+interface ListObjectDef {
+    /**
+     * Name of the alternate state.
+     */
+    qStateName?: string;
+    /**
+     * Refers to a dimension stored in the library.
+     */
+    qLibraryId?: string;
+    /**
+     * Refers to a dimension stored in the list object.
+     * TODO
+     */
+    qDef?: null;
+    /**
+     * Defines the sorting by state.
+     * TODO
+     */
+    qAutoSortByState?: null;
+    /**
+     * Defines the frequence mode.
+     * TODO
+     */
+    qFrequencyMode?: any;
+    /**
+     * If set to true, alternative values are allowd in qData.
+     */
+    qShowAlternatives?: boolean;
+    /**
+     * Fetches an initial data set.
+     * TODO
+     */
+    qInitialDataFetch?: any;
+    /**
+     * Lists the expression in the list object.
+     * TODO
+     */
+    qExpressions?: any;
+
+}
+
+interface HyperCubeDef {
+    /**
+     * Name of the alternate state.
+     */
+    qStateName?: string;
+    /**
+     * Array of dimensions.
+     * TODO
+     */
+    qDimensions?: any;
+    /**
+     * Array of measures.
+     * TODO
+     */
+    qMeasures?: any;
+    /**
+     * Order the columns of the hypercube should be sorted.
+     */
+    qInterColumnSortOrder?: number[];
+    /**
+     * Removes zero values.
+     */
+    qSuppressZero?: boolean;
+    /**
+     * Removes missing values.
+     */
+    qSuppressMissing?: boolean;
+    /**
+     * Initial data set.
+     * TODO
+     */
+    qInitialDataFetch?: any;
+    /**
+     * Defines the way the data are handled internally by the engine.
+     * One of:
+     *  - S for DATA_MODE_STRAIGHT
+     *  - P for DATA_MODE_PIVOT
+     *  - K for DATA_MODE_PIVOT_STACK
+     */
+    qMode?: 'S' | 'P' | 'K';
+    /**
+     * Number of left dimensions.
+     */
+    qNoOfLeftDims?: number;
+    /**
+     * If this property is set to true, the cells are always expanded. It implies that it is not possible to collapse any cells.
+     */
+    qAlwaysFullyExpanded?: boolean;
+    /**
+     * Maximum number of cells for an initial data fetch (set in qInitialDataFetch) when in stacked mode (qMode is K).
+     */
+    qMaxStackedCells?: number;
+    /**
+     * If this property is set to true, the missing symbols (if any) are replaced by 0 if the value is a numeric and by an empty string if the value is a string.
+     */
+    qPopulateMissing?: boolean;
+    /**
+     * If set to true, the total (if any) is shown on the first row.
+     */
+    qShowTotalsAbove?: boolean;
+    /**
+     * This property applies for pivot tables and allows to change the layout of the table.
+     */
+    qIndentMode?: boolean;
+    /**
+     * Specifies a calculation condition, which must be fulfilled for the hupercube to be (re)calculated.
+     */
+    qCalcCond?: string;
+    /**
+     * To enable the sorting by ascending or descending order in the values of a measure.
+     * One of:
+     *  - -1 for sorting descending
+     *  - 0 for no sorting
+     *  - 1 for sorting ascending
+     */
+    qSortbyYValue?: -1 | 0 | 1;
+}
+
+interface AbstractGenericProperties {
     /**
      * Definition of the dynamic properties.
      */
-    VariableListDef?: any;
-    ValueExpression?: any;
+    VariableListDef?: VariableListDef;
+    ValueExpression?: string;
     UndoInfoDef?: any;
-    StringExpression?: any;
+    StringExpression?: string;
     SelectionObjectDef?: any;
     MediaListDef?: any;
-    ListObjectDef?: any;
+    ListObjectDef?: ListObjectDef;
     HyperCubeDef?: any;
     MeasureListDef?: any;
     FieldListDef?: any;
@@ -801,6 +935,13 @@ interface GenericBookmarkProperties {
     ChildListDef?: any;
     BookmarkListDef?: any;
     AppObjectListDef?: any;
+}
+
+interface GenericBookmarkProperties extends AbstractGenericProperties {
+    /**
+     * Information about the bookmark.
+     */
+    qInfo: NxInfo;
 }
 
 interface GenericDimensionProperties {
@@ -812,23 +953,6 @@ interface GenericDimensionProperties {
      * Definition of the dimension.
      */
     qDim: NxLibraryDimensionDef;
-    /**
-     * Definition of the dynamic properties.
-     */
-    VariableListDef?: any;
-    ValueExpression?: any;
-    UndoInfoDef?: any;
-    StringExpression?: any;
-    SelectionObjectDef?: any;
-    MediaListDef?: any;
-    ListObjectDef?: any;
-    HyperCubeDef?: any;
-    MeasureListDef?: any;
-    FieldListDef?: any;
-    EmbeddedSnapshotDef?: any;
-    ChildListDef?: any;
-    BookmarkListDef?: any;
-    AppObjectListDef?: any;
 }
 
 interface GenericMeasureProperties {
@@ -840,23 +964,6 @@ interface GenericMeasureProperties {
      * Definition of the measure.
      */
     qDim: NxLibraryMeasureDef;
-    /**
-     * Definition of the dynamic properties.
-     */
-    VariableListDef?: any;
-    ValueExpression?: any;
-    UndoInfoDef?: any;
-    StringExpression?: any;
-    SelectionObjectDef?: any;
-    MediaListDef?: any;
-    ListObjectDef?: any;
-    HyperCubeDef?: any;
-    MeasureListDef?: any;
-    FieldListDef?: any;
-    EmbeddedSnapshotDef?: any;
-    ChildListDef?: any;
-    BookmarkListDef?: any;
-    AppObjectListDef?: any;
 }
 
 interface GenericObjectProperties {
@@ -869,23 +976,6 @@ interface GenericObjectProperties {
      *  Enter the identifier of the linking object (i.e the object you want to link to).
      */
     qExtendsId: string;
-    /**
-     * Definition of the dynamic properties.
-     */
-    VariableListDef?: any;
-    ValueExpression?: any;
-    UndoInfoDef?: any;
-    StringExpression?: any;
-    SelectionObjectDef?: any;
-    MediaListDef?: any;
-    ListObjectDef?: any;
-    HyperCubeDef?: any;
-    MeasureListDef?: any;
-    FieldListDef?: any;
-    EmbeddedSnapshotDef?: any;
-    ChildListDef?: any;
-    BookmarkListDef?: any;
-    AppObjectListDef?: any;
 }
 
 interface NxInfo {
