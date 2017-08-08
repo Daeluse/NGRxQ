@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   public fieldTwo = 'Production (mil hl)';
 
   // GenericObject Definitions
-  public lbObjProb = {
+  public lbObjProb: GenericObjectProperties = {
     qInfo: {
       qId: '',
       qType: 'FieldList'
@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit {
   }
 
   public refreshApp() {
-    let genObjProp = {
+    let genObjProp: GenericObjectProperties = {
       qInfo: {
         qType: 'chart'
       },

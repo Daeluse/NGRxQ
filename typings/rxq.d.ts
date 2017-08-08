@@ -1003,21 +1003,21 @@ interface AbstractGenericProperties {
     /**
      * Definition of the dynamic properties.
      */
-    VariableListDef?: VariableListDef;
-    ValueExpression?: string;
-    UndoInfoDef?: any;
-    StringExpression?: string;
-    SelectionObjectDef?: any;
-    MediaListDef?: any;
-    ListObjectDef?: ListObjectDef;
-    HyperCubeDef?: HyperCubeDef;
-    MeasureListDef?: MeasureListDef;
-    FieldListDef?: FieldListDef;
-    EmbeddedSnapshotDef?: any;
-    DimensionListDef?: DimensionListDef;
-    ChildListDef?: ChildListDef;
-    BookmarkListDef?: BookmarkListDef;
-    AppObjectListDef?: AppObjectListDef;
+    qVariableListDef?: VariableListDef;
+    qValueExpression?: string;
+    qUndoInfoDef?: any;
+    qStringExpression?: string;
+    qSelectionObjectDef?: any;
+    qMediaListDef?: any;
+    qListObjectDef?: ListObjectDef;
+    qHyperCubeDef?: HyperCubeDef;
+    qMeasureListDef?: MeasureListDef;
+    qFieldListDef?: FieldListDef;
+    qEmbeddedSnapshotDef?: any;
+    qDimensionListDef?: DimensionListDef;
+    qChildListDef?: ChildListDef;
+    qBookmarkListDef?: BookmarkListDef;
+    qAppObjectListDef?: AppObjectListDef;
 }
 
 interface GenericBookmarkProperties extends AbstractGenericProperties {
