@@ -917,6 +917,88 @@ interface HyperCubeDef {
     qSortbyYValue?: -1 | 0 | 1;
 }
 
+interface MeasureListDef {
+    /**
+     * Type of the list.
+     */
+    qType?: string;
+    /**
+     * Data.
+     */
+    qData?: JSON;
+}
+
+interface FieldListDef {
+    /**
+     * Shows the system tables if set to true.
+     */
+    qShowSystem?: boolean;
+    /**
+     * Shows the hidden fields if set to true.
+     */
+    qShowHidden?: boolean;
+    /**
+     * Show the semantic fields if set to true.
+     */
+    qShowSemantic?: boolean;
+    /**
+     * Shows the tables and fields present in the data model viewer if set to true.
+     */
+    qShowSrcTables?: boolean;
+    /**
+     * Shows the fields defined on the fly if set to true.
+     */
+    qShowDefinitionOnly?: boolean;
+    /**
+     * Shows the fields and derived fields if set to true.
+     */
+    qShowDerivedFields?: boolean;
+    /**
+     * Shows the Direct Discovery measure fields if set to true.
+     */
+    qShowImplicit?: boolean;
+}
+
+interface DimensionListDef {
+    /**
+     * Type of the list.
+     */
+    qType?: string;
+    /**
+     * Data.
+     */
+    qData?: JSON;
+}
+
+interface ChildListDef {
+    /**
+     * Data that you want to include in the child list definition.
+     */
+    qData: JSON;
+}
+
+interface BookmarkListDef {
+    /**
+     * Type of the list.
+     */
+    qType?: string;
+    /**
+     * Data.
+     */
+    qData?: JSON;
+}
+
+interface AppObjectListDef {
+    /**
+     * Type of the list.
+     */
+    qType?: string;
+    /**
+     * Data.
+     */
+    qData?: JSON;
+}
+
 interface AbstractGenericProperties {
     /**
      * Definition of the dynamic properties.
@@ -928,13 +1010,14 @@ interface AbstractGenericProperties {
     SelectionObjectDef?: any;
     MediaListDef?: any;
     ListObjectDef?: ListObjectDef;
-    HyperCubeDef?: any;
-    MeasureListDef?: any;
-    FieldListDef?: any;
+    HyperCubeDef?: HyperCubeDef;
+    MeasureListDef?: MeasureListDef;
+    FieldListDef?: FieldListDef;
     EmbeddedSnapshotDef?: any;
-    ChildListDef?: any;
-    BookmarkListDef?: any;
-    AppObjectListDef?: any;
+    DimensionListDef?: DimensionListDef;
+    ChildListDef?: ChildListDef;
+    BookmarkListDef?: BookmarkListDef;
+    AppObjectListDef?: AppObjectListDef;
 }
 
 interface GenericBookmarkProperties extends AbstractGenericProperties {
