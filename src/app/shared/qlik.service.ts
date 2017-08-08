@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-let RxQ: any = require('rxq');
+import RxQ = require('rxq');
 
 /**
  * This class provides the Qlik service with methods to read names and add names.
@@ -8,8 +8,8 @@ let RxQ: any = require('rxq');
 @Injectable()
 export class QlikService {
 
-  private engine: any;
-  private app: any;
+  private engine: GlobalObservable;
+  private app: AppObservable;
 
   /**
    * Creates a new QlikService, do any setup here
@@ -30,7 +30,7 @@ export class QlikService {
     this.app = this.engine.qOpenDoc('21c7a902-a50e-414c-a8d5-8e72444dac0c');
   }
 
-  getApp() {
+  getApp(): AppObservable {
     return this.app;
   }
 }

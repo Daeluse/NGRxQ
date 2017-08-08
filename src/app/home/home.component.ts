@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
     ]
   };
 
-  private _app: any;
+  private _app: AppObservable;
   private _fields: any;
   private _source: any;
 
