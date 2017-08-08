@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
       qId: '',
       qType: 'FieldList'
     },
+    qExtendsId: '',
     qFieldListDef: {
       qShowSystem: false,
       qShowHidden: false,
