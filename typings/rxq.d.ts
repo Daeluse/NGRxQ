@@ -787,7 +787,20 @@ interface GenericBookmarkProperties {
     /**
      * Definition of the dynamic properties.
      */
-    qMetaDef: any;
+    VariableListDef?: any;
+    ValueExpression?: any;
+    UndoInfoDef?: any;
+    StringExpression?: any;
+    SelectionObjectDef?: any;
+    MediaListDef?: any;
+    ListObjectDef?: any;
+    HyperCubeDef?: any;
+    MeasureListDef?: any;
+    FieldListDef?: any;
+    EmbeddedSnapshotDef?: any;
+    ChildListDef?: any;
+    BookmarkListDef?: any;
+    AppObjectListDef?: any;
 }
 
 interface GenericDimensionProperties {
@@ -802,7 +815,20 @@ interface GenericDimensionProperties {
     /**
      * Definition of the dynamic properties.
      */
-    qMetaDef: any;
+    VariableListDef?: any;
+    ValueExpression?: any;
+    UndoInfoDef?: any;
+    StringExpression?: any;
+    SelectionObjectDef?: any;
+    MediaListDef?: any;
+    ListObjectDef?: any;
+    HyperCubeDef?: any;
+    MeasureListDef?: any;
+    FieldListDef?: any;
+    EmbeddedSnapshotDef?: any;
+    ChildListDef?: any;
+    BookmarkListDef?: any;
+    AppObjectListDef?: any;
 }
 
 interface GenericMeasureProperties {
@@ -817,7 +843,20 @@ interface GenericMeasureProperties {
     /**
      * Definition of the dynamic properties.
      */
-    qMetaDef: any;
+    VariableListDef?: any;
+    ValueExpression?: any;
+    UndoInfoDef?: any;
+    StringExpression?: any;
+    SelectionObjectDef?: any;
+    MediaListDef?: any;
+    ListObjectDef?: any;
+    HyperCubeDef?: any;
+    MeasureListDef?: any;
+    FieldListDef?: any;
+    EmbeddedSnapshotDef?: any;
+    ChildListDef?: any;
+    BookmarkListDef?: any;
+    AppObjectListDef?: any;
 }
 
 interface GenericObjectProperties {
@@ -829,11 +868,24 @@ interface GenericObjectProperties {
      * 	Should be set to create an object that is linked to another object.
      *  Enter the identifier of the linking object (i.e the object you want to link to).
      */
-    qExtendsId?: string;
+    qExtendsId: string;
     /**
      * Definition of the dynamic properties.
      */
-    qMetaDef?: any;
+    VariableListDef?: any;
+    ValueExpression?: any;
+    UndoInfoDef?: any;
+    StringExpression?: any;
+    SelectionObjectDef?: any;
+    MediaListDef?: any;
+    ListObjectDef?: any;
+    HyperCubeDef?: any;
+    MeasureListDef?: any;
+    FieldListDef?: any;
+    EmbeddedSnapshotDef?: any;
+    ChildListDef?: any;
+    BookmarkListDef?: any;
+    AppObjectListDef?: any;
 }
 
 interface NxInfo {

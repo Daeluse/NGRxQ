@@ -87,6 +87,7 @@ export class HomeComponent implements OnInit {
       qInfo: {
         qType: 'chart'
       },
+      qExtendsId: '',
       qHyperCubeDef: {
         qDimensions: [
           {
