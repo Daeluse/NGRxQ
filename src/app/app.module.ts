@@ -4,10 +4,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
+import { CdkTableModule } from '@angular/cdk';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { GoalAnalyticsComponent } from './goal-analytics/goal-analytics.component';
 
 import { QlikService } from './shared';
 
@@ -22,12 +24,14 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     HttpModule,
     FormsModule,
     MaterialModule,
+    CdkTableModule,
     routing,
     NgxChartsModule,
   ],
   declarations: [
     AppComponent,
     HomeComponent,
+    GoalAnalyticsComponent,
   ],
   providers: [
     QlikService,

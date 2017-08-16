@@ -1,10 +1,22 @@
 <div layout-fill layout="column" layout-align="start center">
   <div style="width: 100%">
-    <md-toolbar color="primary" style="padding-bottom: 32px">
-      Qlik RxQ Engine API Demo
+    <md-toolbar color="primary" style="padding-bottom: 32px" class="header">
+      <div layout="row" layout-align="start center" style="width: 100%;">
+        Qlik RxQ Engine API Demo
+        <span flex></span>
+        <button md-icon-button [mdMenuTriggerFor]="navMenu">
+          <md-icon>
+            menu
+          </md-icon>
+        </button>
+        <md-menu #navMenu="mdMenu">
+          <button md-menu-item [routerLink]="['/']">Home</button>
+          <button md-menu-item [routerLink]="['/goal-analytics']">Goal Analytics</button>
+        </md-menu>
+      </div>
     </md-toolbar>
   </div>
-  <div class="route-container" style="margin-top: -32px">
+  <div class="route-container" style="margin-top: -32px; width: 95%;">
     <router-outlet></router-outlet>
   </div>
 </div>

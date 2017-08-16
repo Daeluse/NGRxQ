@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   public fields: string[] = [];
   public fieldOne = 'Region';
   public fieldTwo = 'Production (mil hl)';
+  public fieldThree = 'Year';
 
   // GenericObject Definitions
   public lbObjProb: GenericObjectProperties = {
@@ -32,7 +33,9 @@ export class HomeComponent implements OnInit {
     },
   };
   public single: any[] = [];
+  public multi: any[] = [];
 
+  public isMulti = false;
   public view: any[] = [700, 400];
   public showLegend = true;
   public showLabels = true;
@@ -83,6 +86,16 @@ export class HomeComponent implements OnInit {
   }
 
   public refreshApp() {
+    if (this.type === 'bar' || this.type === 'pie') {
+      this._refreshSingleApp();
+      this.isMulti = false;
+    } else {
+      this._refreshMultiApp();
+      this.isMulti = true;
+    }
+  }
+
+  private _refreshSingleApp() {
     let genObjProp: GenericObjectProperties = {
       qInfo: {
         qType: 'chart'
@@ -135,6 +148,93 @@ export class HomeComponent implements OnInit {
       })
       .subscribe((res: any) => {
         this.single = [ ...res ];
+      });
+  }
+
+  private _refreshMultiApp() {
+    let genObjProp: GenericObjectProperties = {
+      qInfo: {
+        qType: 'chart'
+      },
+      qExtendsId: '',
+      qHyperCubeDef: {
+        qDimensions: [
+          {
+            qDef: {
+              qGrouping:  'N',
+              qFieldDefs: [
+                this.fieldOne
+              ]
+            },
+            qNullSuppression: true
+          },
+          {
+            qDef: {
+              qGrouping:  'N',
+              qFieldDefs: [
+                this.fieldThree
+              ]
+            },
+            qNullSuppression: true
+          }
+        ],
+        qMeasures: [
+          {
+            qDef: {
+              qGrouping:  'N',
+              qDef: 'sum([' + this.fieldTwo + '])'
+            }
+          }
+        ],
+        qInitialDataFetch: [
+          {
+            qLeft: 0,
+            qTop: 0,
+            qWidth: 3,
+            qHeight: 1000
+          }
+        ]
+      }
+    };
+
+    this._source = this._app.qCreateSessionObject(genObjProp)
+      .qLayouts()
+      .map((m: any) => {
+        console.log(m);
+        return m;
+      })
+      .pluck('qHyperCube', 'qDataPages', 0, 'qMatrix')
+      .map((m: any) => {
+        return m.map((n: any) => {
+          return {
+            idx: n[0].qElemNumber,
+            name: n[0].qText,
+            series: [
+              {
+                name: n[1].qText,
+                value: n[2].qText
+              },
+            ]
+          };
+        });
+      })
+      .subscribe((res: any) => {
+        let tmpMulti = [];
+        res.map((c: any) => {
+          let existing = tmpMulti.filter((v) => {
+            return v.name === c.name;
+          });
+          if (existing.length) {
+            let existingIndex = tmpMulti.indexOf(existing[0]);
+            tmpMulti[existingIndex].series = tmpMulti[existingIndex].series.concat(c.series);
+          } else {
+            if (typeof c.series === 'string') {
+              c.series = [c.series];
+            }
+            tmpMulti.push(c);
+          }
+        });
+        this.multi = tmpMulti;
       });
   }
 

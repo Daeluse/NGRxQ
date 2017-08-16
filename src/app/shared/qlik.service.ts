@@ -26,7 +26,7 @@ export class QlikService {
       apiKey: 'lWhoLDBwA5b4amNBEXQFXqG04ZdQIjsh'
     }, 'warm');
 
-    // open application - AirBnB QVF
+    // open application - Global Beer Data QvF
     this.app = this.engine.qOpenDoc('21c7a902-a50e-414c-a8d5-8e72444dac0c');
   }
 

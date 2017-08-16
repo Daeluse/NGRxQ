@@ -18,9 +18,15 @@
       <md-option value="bar">
         Bar Chart
       </md-option>
+      <md-option value="line">
+        Line Chart
+      </md-option>
+      <md-option value="area">
+        Area Chart
+      </md-option>
     </md-select>
     <span flex></span>
-    <md-select placeholder="Data Point One" [(ngModel)]="fieldOne" (ngModelChange)="refreshApp()">
+    <md-select placeholder="Dimension" [(ngModel)]="fieldOne" (ngModelChange)="refreshApp()">
       <ng-template ngFor let-field [ngForOf]="fields">
         <md-option [value]="field.value">
           {{ field.value }}
@@ -28,7 +34,15 @@
       </ng-template>
     </md-select>
     <span class="spacer"></span>
-    <md-select placeholder="Data Point One" [(ngModel)]="fieldTwo" (ngModelChange)="refreshApp()">
+    <md-select *ngIf="isMulti" placeholder="Secondary Dimension" [(ngModel)]="fieldThree" (ngModelChange)="refreshApp()">
+      <ng-template ngFor let-field [ngForOf]="fields">
+        <md-option [value]="field.value">
+          {{ field.value }}
+        </md-option>
+      </ng-template>
+    </md-select>
+    <span class="spacer" *ngIf="isMulti"></span>
+    <md-select placeholder="Measure" [(ngModel)]="fieldTwo" (ngModelChange)="refreshApp()">
       <ng-template ngFor let-field [ngForOf]="fields">
         <md-option [value]="field.value">
           {{ field.value }}
@@ -49,11 +63,11 @@
     [view]="view"
     [scheme]="colorScheme"
     [results]="single"
-    [legend]="showLegend"
-    [explodeSlices]="explodeSlices"
-    [labels]="showLabels"
-    [doughnut]="doughnut"
-    [gradient]="gradient">
+    [legend]="true"
+    [explodeSlices]="false"
+    [labels]="true"
+    [doughnut]="false"
+    [gradient]="true">
   </ngx-charts-pie-chart>
 
   <ngx-charts-bar-vertical *ngIf="type === 'bar'"
@@ -69,6 +83,36 @@
       [xAxisLabel]="fieldOne"
       [yAxisLabel]="fieldTwo">
     </ngx-charts-bar-vertical>
+
+    <ngx-charts-line-chart *ngIf="type === 'line'"
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="multi"
+      [gradient]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="fieldThree"
+      [yAxisLabel]="fieldTwo"
+      [autoScale]="true">
+    </ngx-charts-line-chart>
+
+    <ngx-charts-area-chart *ngIf="type === 'area'"
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="multi"
+      [gradient]="gradient"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="fieldThree"
+      [yAxisLabel]="fieldTwo"
+      [autoScale]="true">
+    </ngx-charts-area-chart>
 
   <div class="clear"></div>
 </md-card>

@@ -1,0 +1,203 @@
+<md-card>
+  <md-card-header>
+    <md-card-title style="font-size: 24px;">
+      Goal Analytics
+    </md-card-title>
+    <md-card-subtitle>
+      Custom Sheet Demo
+    </md-card-subtitle>
+  </md-card-header>
+
+  <div class="spacer"></div>
+
+  <div layout="row" layout-align="start start">
+    
+    <div layout="column" flex="20">
+
+      <div class="graph-section">
+        <h4>Total Number of Goals</h4>
+        <ngx-charts-linear-gauge
+          [view]="view"
+          [scheme]="colorSets.cool"
+          [value]="goals.length"
+          [units]="'Goals'">
+        </ngx-charts-linear-gauge>
+      </div>
+
+      <div class="graph-section">
+        <h4>Total Number of Linked Goals</h4>
+        <h6>Goals Linked to Corp. Strategy</h6>
+        <ngx-charts-linear-gauge
+          [view]="view"
+          [scheme]="colorSets.fire"
+          [value]="goals.length"
+          [units]="'Linked Goals'">
+        </ngx-charts-linear-gauge>
+      </div>
+
+      <div class="graph-section">
+        <h4>Toal Number of Check-ins</h4>
+        <ngx-charts-linear-gauge
+          [view]="view"
+          [scheme]="colorSets.aqua"
+          [value]="goals.length"
+          [units]="'Check-ins'">
+        </ngx-charts-linear-gauge>
+      </div>
+
+      <div class="graph-section">
+        <h4>Goal Assignment</h4>
+        <h6>Orange = # of Employees without Goals</h6>
+        <ngx-charts-pie-chart
+          [view]="view"
+          [scheme]="colorSets.flame"
+          [results]="employeeGoalStats"
+          [legend]="false"
+          [explodeSlices]="false"
+          [labels]="false"
+          [doughnut]="true"
+          [gradient]="false">
+        </ngx-charts-pie-chart>
+      </div>
+
+    </div>
+
+    <span class="spacer"></span>
+
+    <div layout="column" flex>
+      
+      <div class="graph-section">
+        <h4>Goal Performance</h4>
+        <ngx-charts-bar-vertical
+          [view]="[1200, 306]"
+          [scheme]="colorSets.air"
+          [results]="employeePerformanceStats"
+          [gradient]="false"
+          [xAxis]="true"
+          [yAxis]="true"
+          [legend]="false"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          xAxisLabel="Employee"
+          yAxisLabel="Goal Score"
+          (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+      </div>
+
+      <div layout="row" layout-align="start start">
+
+        <div class="graph-section">
+          <h4>Appraisal Score</h4>
+          <ngx-charts-gauge
+            [view]="[300, 280]"
+            [scheme]="colorSets.cool"
+            [results]="[{'name': 'Average Appraisal Score', 'value': appraisalScoreAverage}]"
+            [min]="0"
+            [max]="5"
+            [angleSpan]="240"
+            [startAngle]="-120"
+            units="Avg."
+            [bigSegments]="5"
+            [smallSegments]="10">
+          </ngx-charts-gauge>
+        </div>
+
+        <div class="graph-section" flex>
+          <h4>Linked Goal Performance</h4>
+          <ngx-charts-bar-vertical
+            [view]="[900, 280]"
+            [scheme]="colorSets.solar"
+            [results]="employeePerformanceStats"
+            [gradient]="false"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="false"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            xAxisLabel="Employee"
+            yAxisLabel="Linked Goal Score">
+          </ngx-charts-bar-vertical>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  
+  <div class="spacer"></div>
+
+  <div class="graph-section">
+    <h4>Goal Feedback Report</h4>
+    <div class="example-container mat-elevation-z8">
+      <div layout="row" layout-align="start center" style="padding: 0 8px;">
+        <md-input-container floatPlaceholder="never" flex>
+          <input mdInput #filter placeholder="Filter users">
+          <md-icon mdSuffix>
+            search
+          </md-icon>
+        </md-input-container>
+      </div>
+
+      <div layout="row" layout-algin="start center" style="padding: 0 8px 8px 8px;">
+        <md-checkbox (change)="setFilter($event, 'name')" [ngModel]="getFilter('name')">
+          Name
+        </md-checkbox>
+
+        <span class="spacer"></span>
+
+        <md-checkbox (change)="setFilter($event, 'manager')" [ngModel]="getFilter('manager')">
+          Manager
+        </md-checkbox>
+      </div>
+
+      <md-table #table [dataSource]="dataSource" mdSort>
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- ID Column -->
+        <ng-container cdkColumnDef="userId">
+          <md-header-cell *cdkHeaderCellDef md-sort-header> ID </md-header-cell>
+          <md-cell *cdkCellDef="let row"> {{row.id}} </md-cell>
+        </ng-container>
+
+        <!-- Score Column -->
+        <ng-container cdkColumnDef="score">
+          <md-header-cell *cdkHeaderCellDef md-sort-header> Score </md-header-cell>
+          <md-cell *cdkCellDef="let row"> {{row.score}} </md-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container cdkColumnDef="userName">
+          <md-header-cell *cdkHeaderCellDef md-sort-header> Name </md-header-cell>
+          <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+        </ng-container>
+
+        <!-- Manager Column -->
+        <ng-container cdkColumnDef="manager">
+          <md-header-cell *cdkHeaderCellDef md-sort-header> Manager </md-header-cell>
+          <md-cell *cdkCellDef="let row"> {{row.manager}} </md-cell>
+        </ng-container>
+
+        <!-- Goal Column -->
+        <ng-container cdkColumnDef="goal">
+          <md-header-cell *cdkHeaderCellDef md-sort-header> Goal Name </md-header-cell>
+          <md-cell *cdkCellDef="let row"> {{row.goal}} </md-cell>
+        </ng-container>
+
+        <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+        <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+      </md-table>
+
+      <md-paginator #paginator
+        [length]="dataBase.data.length"
+        [pageIndex]="0"
+        [pageSize]="25"
+        [pageSizeOptions]="[5, 10, 25]">
+      </md-paginator>
+    </div>
+  </div>
+
+  <div class="clear"></div>
+</md-card>
